@@ -139,12 +139,12 @@
 <body>
     <img src="https://i.imgur.com/YWt1xPU.png" alt="Kuehne+Nagel Logo" class="logo">
     <h1>Qui est-ce ? - Équipe Communication</h1>
-    <p class="instructions">Cliquez sur un avatar pour découvrir les indices et tentez de deviner le prénom du collaborateur.</p>
+    <p class="instructions">Cliquez sur un avatar pour découvrir les indices et tentez de deviner le nom du collaborateur.</p>
     <div id="game">
         <!-- Les cartes des membres de l'équipe seront générées ici -->
     </div>
     <select id="nameSelect" class="hidden">
-        <option value="">Sélectionnez un prénom</option>
+        <option value="">Sélectionnez un nom</option>
     </select>
     <button id="guessButton" onclick="guessMember()">Deviner</button>
     <div class="score">Score: <span id="score">0</span></div>
@@ -220,7 +220,7 @@
             }
             const selectedName = nameSelect.value;
             if (!selectedName) {
-                alert("Veuillez sélectionner un prénom.");
+                alert("Veuillez sélectionner un nom.");
                 return;
             }
             if (selectedName === currentMember.name) {
