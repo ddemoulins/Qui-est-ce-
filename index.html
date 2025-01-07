@@ -19,19 +19,19 @@
             margin-bottom: 20px;
             color: #0099da;
         }
-      .card-container {
-    perspective: 1000px;
-    display: inline-block;
-    margin: 5px; /* Réduit la marge */
-}
-       .member-card {
-    width: 160px; /* Réduit la largeur */
-    height: 240px; /* Réduit la hauteur */
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.6s;
-    cursor: pointer;
-}
+        .card-container {
+            perspective: 1000px;
+            display: inline-block;
+            margin: 5px; /* Réduit la marge */
+        }
+        .member-card {
+            width: 160px; /* Réduit la largeur */
+            height: 240px; /* Réduit la hauteur */
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
         .member-card.is-flipped {
             transform: rotateY(180deg);
         }
@@ -50,12 +50,12 @@
             align-items: center;
             justify-content: center;
         }
-     .card-front img {
-    width: 120px; /* Réduit la taille de l'image */
-    height: 120px; /* Réduit la taille de l'image */
-    border-radius: 50%;
-    margin-bottom: 10px;
-}
+        .card-front img {
+            width: 120px; /* Réduit la taille de l'image */
+            height: 120px; /* Réduit la taille de l'image */
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
         .card-back {
             background-color: #003369;
             color: white;
@@ -74,6 +74,9 @@
         }
         .hidden {
             display: none;
+        }
+        #game {
+            margin-bottom: 40px; /* Ajoute de l'espace en bas des cartes */
         }
         #description {
             margin-top: 20px;
@@ -116,7 +119,7 @@
 <body>
     <img src="https://i.imgur.com/YWt1xPU.png" alt="Kuehne+Nagel Logo" class="logo">
     <h1>Qui est-ce ? - Équipe Communication</h1>
-    <p class="instructions">Cliquez sur un avatar pour découvrir les indices et tentez de deviner le prénom du collaborateur grâce aux indices pro et perso.</p>
+    <p class="instructions">Cliquez sur un avatar pour découvrir les indices et tentez de deviner le prénom du collaborateur.</p>
     <div id="game">
         <!-- Les cartes des membres de l'équipe seront générées ici -->
     </div>
@@ -141,6 +144,7 @@
         const nameSelect = document.getElementById('nameSelect');
         let currentMember = null;
         let score = 0;
+        let flippedCard = null; // Variable pour suivre la carte retournée
 
         // Mélanger les prénoms
         const shuffledNames = teamMembers.map(member => member.name).sort(() => Math.random() - 0.5);
@@ -163,9 +167,13 @@
             gameDiv.appendChild(cardContainer);
 
             memberCard.addEventListener('click', () => {
+                if (flippedCard && flippedCard !== memberCard) {
+                    flippedCard.classList.remove('is-flipped');
+                }
                 memberCard.classList.toggle('is-flipped');
                 currentMember = member;
                 nameSelect.classList.remove('hidden');
+                flippedCard = memberCard;
             });
         });
 
@@ -196,6 +204,10 @@
             scoreDisplay.textContent = score;
             nameSelect.value = "";
             nameSelect.classList.add('hidden');
+            if (flippedCard) {
+                flippedCard.classList.remove('is-flipped');
+                flippedCard = null;
+            }
         }
     </script>
 </body>
